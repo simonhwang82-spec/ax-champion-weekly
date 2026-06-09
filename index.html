@@ -1,0 +1,1955 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AX Champion Weekly #04 · 2026.06.08 · Dreamus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --ink:    #1F1F1F;
+    --body:   #3a3a3a;
+    --mid:    #666666;
+    --line:   #BFBFBF;
+    --hair:   #D9D9D9;
+    --card:   #F5F5F5;
+    --faint:  #FAFAFA;
+    --white:  #FFFFFF;
+    --accent: #6b6966;
+    --ff-display: 'Syne', system-ui, sans-serif;
+
+    --radius: 6px;
+    --gap:    clamp(2rem, 5vw, 4rem);
+    --side:   clamp(1.25rem, 5vw, 6rem);
+    --max:    1180px;
+
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--body);
+    background: var(--white);
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ════════════════════════════════════════
+     YOUTUBE EMBED
+  ════════════════════════════════════════ */
+  .yt-wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+  .yt-player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    border-radius: var(--radius);
+    overflow: visible;
+    clip-path: inset(0 round var(--radius));
+    cursor: pointer;
+  }
+  .yt-thumb {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .yt-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), filter 0.3s;
+    filter: brightness(0.85);
+  }
+  .yt-thumb:hover img { transform: scale(1.03); filter: brightness(0.7); }
+  .yt-play-btn {
+    position: absolute;
+    z-index: 2;
+    background: none;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    transition: transform 0.2s;
+  }
+  .yt-thumb:hover .yt-play-btn { transform: scale(1.12); }
+  .yt-meta {
+    position: absolute; bottom: 0.75rem; right: 0.75rem; z-index: 2;
+  }
+  .yt-duration {
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(0,0,0,0.75); color: #fff;
+    padding: 0.15rem 0.4rem; border-radius: 3px;
+    letter-spacing: 0.04em;
+  }
+  .yt-info {
+    min-width: 200px; max-width: 220px;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .yt-info-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid);
+  }
+  .yt-info-title {
+    font-size: 0.95rem; font-weight: 700; color: var(--ink);
+    line-height: 1.4; word-break: keep-all;
+  }
+  .yt-info-speaker { font-size: 0.8rem; color: var(--mid); }
+  .yt-info-link {
+    font-size: 0.78rem; color: var(--accent);
+    text-decoration: none; margin-top: 0.25rem;
+    transition: color 0.15s;
+  }
+  .yt-info-link:hover { color: var(--ink); }
+  @media (max-width: 680px) {
+    .yt-wrap { grid-template-columns: 1fr; }
+    .yt-info { max-width: 100%; }
+  }
+
+  /* ── Display font: eyebrow / label elements ── */
+  .quote-label, .quote-speaker-label,
+  .ceo-card-label, .sec-num, .yt-info-label,
+  .yt-duration, .compare-country,
+  .timeline-label, .support-label,
+  .stage-graduate {
+    font-family: var(--ff-display);
+  }
+
+  /* ── Korean word-break: 모든 텍스트 요소에 적용 ── */
+  h1, h2, h3, h4, h5, h6,
+  p, li, td, th,
+  .quote-text, .ceo-note-text, .decl-title, .decl-body,
+  .stage-name, .stage-desc, .task-type, .task-how, .task-example,
+  .message-title, .message-body, .message-impact,
+  .section-desc, .hero-question, .compare-footer,
+  .pipeline-feat-name, .pipeline-feat-desc,
+  .sync-note, .timeline-task, .support-scope,
+  .action-text {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  /* ── Layout helpers ── */
+  .wrap {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-inline: var(--side);
+  }
+  .divider { display: none; }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.hidden { opacity: 0; transform: translateY(24px); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .reveal.hidden { opacity: 1; transform: none; }
+  }
+
+  /* ════════════════════════════════════════
+     NAV
+  ════════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; inset-inline: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    padding: 0 var(--side);
+    height: 52px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--hair);
+    transition: background 0.3s;
+  }
+  .nav-brand {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--ink); text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+    font-family: var(--ff-display);
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 0;
+    list-style: none; flex: 1; justify-content: center;
+  }
+  .nav-links a {
+    display: block; padding: 0 0.9rem; height: 52px; line-height: 52px;
+    font-size: 0.78rem; color: var(--mid); text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.18s, border-color 0.18s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .nav-date { font-size: 0.72rem; color: var(--mid); white-space: nowrap; flex-shrink: 0; font-family: var(--ff-display); }
+
+  /* Mobile: collapse nav links */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+  }
+
+  /* ════════════════════════════════════════
+     HERO
+  ════════════════════════════════════════ */
+  .hero {
+    height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 52px; /* nav height */
+  }
+  .hero-left {
+    background: var(--ink);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: clamp(2.5rem, 6vw, 5rem);
+    color: var(--white);
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-family: var(--ff-display);
+  }
+  .hero-tag {
+    font-size: 0.75rem; color: oklch(78% 0 0);
+    margin-bottom: auto;
+    padding-top: 0.5rem;
+    line-height: 1.8;
+  }
+  .hero-left-bottom { margin-top: auto; }
+  .hero-label {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: oklch(65% 0 0); margin-bottom: 0.5rem;
+    font-family: var(--ff-display);
+  }
+  .hero-sub { font-size: 0.85rem; color: oklch(78% 0 0); line-height: 1.8; }
+
+  .hero-right {
+    background: var(--white);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(2.5rem, 6vw, 5rem);
+    overflow: hidden;
+  }
+  .hero-kicker {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--mid); text-transform: uppercase; margin-bottom: 1.5rem;
+    font-family: var(--ff-display);
+  }
+  .hero-title {
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-wrap: balance;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    margin-bottom: 1.5rem;
+  }
+  .hero-question {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-style: italic;
+    color: var(--mid);
+    margin-bottom: 2.5rem;
+  }
+  .hero-tagline {
+    font-size: 0.85rem; color: var(--mid);
+    border-top: 1px solid var(--hair);
+    padding-top: 1.25rem;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; min-height: unset; }
+    .hero-left { padding: 2.5rem var(--side); }
+    .hero-right { padding: 2.5rem var(--side); }
+  }
+
+  /* ════════════════════════════════════════
+     SECTION SHELL
+  ════════════════════════════════════════ */
+  section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  section.dark {
+    background: var(--ink); color: var(--white);
+  }
+
+  .section-intro { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .section-part {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid);
+    margin-bottom: 0.6rem;
+    display: block;
+    font-family: var(--ff-display);
+  }
+  .dark .section-part { color: oklch(68% 0 0); }
+  .section-title {
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1.25;
+    text-wrap: balance;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    margin-bottom: 0.75rem;
+  }
+  .dark .section-title { color: var(--white); }
+  .section-desc {
+    font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+    color: var(--mid);
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .dark .section-desc { color: oklch(72% 0 0); }
+
+  /* ════════════════════════════════════════
+     QUOTE BLOCK
+  ════════════════════════════════════════ */
+  .quote-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .quote-main {
+    background: var(--faint);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-left: 4px solid var(--accent);
+  }
+  .quote-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid);
+    margin-bottom: 1rem;
+  }
+  .quote-text {
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    text-wrap: pretty;
+  }
+  .quote-note { font-size: 0.85rem; color: var(--mid); }
+  .quote-speaker {
+    background: var(--card);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .quote-speaker-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.75rem;
+  }
+  .quote-speaker-name {
+    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+    font-weight: 800; color: var(--ink);
+    letter-spacing: -0.02em; margin-bottom: 0.5rem;
+  }
+  .quote-speaker-bio { font-size: 0.85rem; color: var(--mid); line-height: 1.8; }
+  @media (max-width: 640px) {
+    .quote-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ════════════════════════════════════════
+     YC 5 MESSAGES TABLE
+  ════════════════════════════════════════ */
+  .message-list { margin-top: 2rem; }
+  .message-row {
+    display: grid;
+    grid-template-columns: 3ch 1fr 1fr;
+    gap: 1.5rem 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: start;
+  }
+  .message-row:first-child { border-top: 1px solid var(--hair); }
+  .message-num { font-size: 1.6rem; font-weight: 800; color: #767676; line-height: 1; padding-top: 2px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .message-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+  .message-body { font-size: 0.82rem; color: var(--mid); line-height: 1.6; }
+  .message-impact { font-size: 0.82rem; font-style: italic; color: var(--body); line-height: 1.6; }
+  @media (max-width: 700px) {
+    .message-row { grid-template-columns: 3ch 1fr; }
+    .message-impact { grid-column: 2; }
+  }
+  @media (max-width: 480px) {
+    .message-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .message-num { font-size: 1.1rem; }
+  }
+
+  /* ════════════════════════════════════════
+     DATA COMPARE (77% vs 30.7%)
+  ════════════════════════════════════════ */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hair);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .compare-us { background: var(--ink); color: var(--white); padding: clamp(1.75rem, 5vw, 3rem); }
+  .compare-kr { background: var(--card); color: var(--ink); padding: clamp(1.75rem, 5vw, 3rem); }
+  .compare-country {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .compare-us .compare-country { color: oklch(68% 0 0); }
+  .compare-kr .compare-country { color: var(--mid); }
+  .compare-pct {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .compare-us .compare-pct { color: var(--white); }
+  .compare-kr .compare-pct { color: var(--ink); }
+  .compare-source { font-size: 0.75rem; margin-bottom: 1.5rem; }
+  .compare-us .compare-source { color: oklch(68% 0 0); }
+  .compare-kr .compare-source { color: var(--mid); }
+  .compare-bullets { list-style: none; }
+  .compare-bullets li {
+    font-size: 0.82rem; line-height: 1.7; padding: 0.25rem 0;
+    border-bottom: 1px solid;
+    display: flex; gap: 0.5rem;
+  }
+  .compare-bullets li::before { content: "·"; flex-shrink: 0; }
+  .compare-us .compare-bullets li { border-color: oklch(36% 0 0); color: oklch(78% 0 0); }
+  .compare-kr .compare-bullets li { border-color: var(--hair); color: var(--body); }
+  .compare-bullets li:last-child { border-bottom: none; }
+  .compare-footer {
+    margin-top: 1.5rem;
+    font-size: 0.875rem; font-style: italic; font-weight: 700;
+    color: var(--ink);
+  }
+  .compare-footer-note {
+    margin-top: 0.5rem;
+    font-size: 0.75rem; color: var(--mid);
+  }
+  @media (max-width: 580px) {
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ════════════════════════════════════════
+     CEO NOTE
+  ════════════════════════════════════════ */
+  .ceo-note {
+    background: var(--faint);
+    border-left: 4px solid var(--accent);
+    padding: 1.75rem 2rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-top: 2.5rem;
+  }
+  .ceo-note-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.6rem;
+  }
+  .ceo-note-text {
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: 700; font-style: italic; color: var(--ink);
+    line-height: 1.55; text-wrap: pretty;
+  }
+  .ceo-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .ceo-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .ceo-card-num { font-size: 1.6rem; font-weight: 900; color: #767676; margin-bottom: 0.4rem; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .ceo-card-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.35rem;
+  }
+  .ceo-card-text { font-size: 0.9rem; font-weight: 700; color: var(--ink); line-height: 1.45; }
+  @media (max-width: 560px) { .ceo-cards { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════
+     9-SECTION GRID
+  ════════════════════════════════════════ */
+  /* ── Section flow (타임라인) ── */
+  .sec-flow {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .sec-flow::before {
+    content: '';
+    position: absolute;
+    top: 1.1rem;
+    left: calc(100% / 14);
+    right: calc(100% / 14);
+    height: 1px;
+    background: var(--hair);
+    z-index: 0;
+  }
+  .sec-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 0.4rem;
+    position: relative;
+    z-index: 1;
+    cursor: default;
+  }
+  .sec-step-badge {
+    width: 2.25rem; height: 2.25rem;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.68rem; font-weight: 700;
+    color: var(--mid);
+    margin-bottom: 0.85rem;
+    font-family: var(--ff-display);
+    font-variant-numeric: tabular-nums;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .sec-step:hover .sec-step-badge {
+    background: var(--ink); border-color: var(--ink); color: var(--white);
+  }
+  .sec-step-name {
+    font-size: 0.82rem; font-weight: 700; color: var(--ink);
+    margin-bottom: 0.3rem; line-height: 1.3; word-break: keep-all;
+  }
+  .sec-step-desc {
+    font-size: 0.71rem; color: var(--mid); line-height: 1.4; word-break: keep-all;
+  }
+  .sec-step.sec-step-start .sec-step-badge {
+    background: var(--ink); border-color: var(--ink); color: var(--white);
+  }
+  @media (max-width: 760px) {
+    .sec-flow { flex-wrap: wrap; gap: 1.5rem; }
+    .sec-flow::before { display: none; }
+    .sec-step { flex: 0 0 calc(50% - 1rem); flex-direction: row; align-items: flex-start; text-align: left; gap: 0.75rem; padding: 0; }
+    .sec-step-badge { flex-shrink: 0; margin-bottom: 0; }
+  }
+
+  /* ════════════════════════════════════════
+     3-STAGE PATH
+  ════════════════════════════════════════ */
+  .stage-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+    position: relative;
+  }
+  .stage-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    position: relative;
+  }
+  .stage-badge {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.6rem;
+    font-family: var(--ff-display);
+  }
+  .stage-name { font-size: 1.1rem; font-weight: 800; color: var(--ink); margin-bottom: 0.4rem; }
+  .stage-desc { font-size: 0.82rem; color: var(--body); margin-bottom: 1.25rem; line-height: 1.6; }
+  .stage-divider { border: none; border-top: 1px solid var(--hair); margin-bottom: 1rem; }
+  .stage-graduate {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.6rem;
+  }
+  .stage-bullets { list-style: none; }
+  .stage-bullets li {
+    font-size: 0.8rem; color: var(--body); line-height: 1.7;
+    display: flex; gap: 0.4rem;
+  }
+  .stage-bullets li::before { content: "·"; color: var(--mid); flex-shrink: 0; }
+  .stage-arrow {
+    display: none; /* handled via CSS */
+  }
+  @media (max-width: 640px) {
+    .stage-row { grid-template-columns: 1fr; }
+  }
+
+  /* ════════════════════════════════════════
+     4 TASK TYPES
+  ════════════════════════════════════════ */
+  .task-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+  .task-card {
+    background: var(--card);
+    padding: 1.75rem 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 1rem;
+  }
+  .task-card:hover { background: var(--faint); }
+  .task-num { font-size: 1.5rem; font-weight: 700; color: #767676; grid-row: span 3; padding-top: 2px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .task-type { font-size: 1.05rem; font-weight: 800; color: var(--ink); margin-bottom: 0.2rem; }
+  .task-how { font-size: 0.8rem; font-style: italic; color: var(--mid); margin-bottom: 0.5rem; }
+  .task-example {
+    font-size: 0.8rem; color: var(--body);
+    border-top: 1px solid var(--hair); padding-top: 0.6rem; margin-top: 0.3rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 760px) { .task-grid { grid-template-columns: 1fr; } }
+  .skill-note {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    margin-top: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--hair);
+    border-left: 3px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 0.82rem; color: var(--mid); line-height: 1.65; word-break: keep-all;
+  }
+  .skill-note-icon { font-size: 1rem; flex-shrink: 0; padding-top: 0.05rem; }
+  .skill-note-label { font-weight: 700; color: var(--ink); margin-right: 0.4rem; }
+
+  /* ════════════════════════════════════════
+     G360 EXAMPLE
+  ════════════════════════════════════════ */
+  .g360-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .g360-summary {
+    background: var(--faint);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.75rem 1.5rem;
+  }
+  .g360-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.6rem;
+    font-family: var(--ff-display);
+  }
+  .g360-name { font-size: 1.6rem; font-weight: 900; color: var(--ink); margin-bottom: 0.25rem; }
+  .g360-fullname { font-size: 0.85rem; color: var(--mid); margin-bottom: 1.25rem; }
+  .g360-fact { display: flex; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 1px solid var(--hair); align-items: baseline; }
+  .g360-fact:last-child { border-bottom: none; }
+  .g360-fact-key { font-size: 0.75rem; font-weight: 700; color: var(--ink); min-width: 70px; flex-shrink: 0; }
+  .g360-fact-val { font-size: 0.82rem; color: var(--body); }
+  .g360-cats {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+  }
+  .g360-cats-title { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
+  .g360-cat-row {
+    display: flex; gap: 0.75rem; align-items: baseline;
+    padding: 0.35rem 0; border-bottom: 1px solid var(--hair);
+    font-size: 0.82rem;
+  }
+  .g360-cat-row:last-child { border-bottom: none; }
+  .g360-cat-num { color: var(--mid); min-width: 1.5ch; }
+  .g360-cat-name { color: var(--body); }
+  @media (max-width: 600px) { .g360-grid { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════
+     DREAMUS VIEW 360 — DETAIL CARDS
+  ════════════════════════════════════════ */
+  .v360-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .v360-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .v360-detail-card {
+    background: var(--white);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .v360-detail-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.35rem;
+    font-family: var(--ff-display);
+  }
+  .v360-detail-title { font-size: 1rem; font-weight: 800; color: var(--ink); margin-bottom: 1rem; }
+  /* Problem list */
+  .v360-problem-list { display: flex; flex-direction: column; gap: 0.7rem; }
+  .v360-prob-item { display: flex; gap: 0.6rem; align-items: flex-start; }
+  .v360-prob-num { font-size: 0.65rem; font-weight: 700; color: var(--mid); min-width: 20px; flex-shrink: 0; padding-top: 0.15rem; font-family: var(--ff-display); }
+  .v360-prob-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 0.15rem; word-break: keep-all; }
+  .v360-prob-desc { font-size: 0.77rem; color: var(--mid); line-height: 1.5; word-break: keep-all; }
+  /* Persona list */
+  .v360-persona-list { display: flex; flex-direction: column; }
+  .v360-persona { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.38rem 0; border-bottom: 1px solid var(--hair); font-size: 0.82rem; }
+  .v360-persona:last-child { border-bottom: none; }
+  .v360-persona-role { font-weight: 700; color: var(--ink); min-width: 76px; flex-shrink: 0; font-size: 0.77rem; }
+  .v360-persona-need { color: var(--body); line-height: 1.5; word-break: keep-all; font-size: 0.8rem; }
+  /* Build steps */
+  .v360-build-steps { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.75rem; }
+  .v360-build-step { font-size: 0.8rem; color: var(--body); line-height: 1.5; display: flex; gap: 0.5rem; word-break: keep-all; }
+  .v360-build-idx { color: var(--mid); font-weight: 700; flex-shrink: 0; font-size: 0.75rem; min-width: 20px; }
+  /* Timeline */
+  .v360-tl-list { display: flex; flex-direction: column; margin-top: 0.75rem; }
+  .v360-tl-row { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.35rem 0; border-bottom: 1px solid var(--hair); }
+  .v360-tl-row:last-child { border-bottom: none; }
+  .v360-tl-date { font-weight: 700; color: var(--mid); min-width: 72px; flex-shrink: 0; font-size: 0.73rem; font-family: var(--ff-display); }
+  .v360-tl-task { color: var(--body); font-size: 0.8rem; word-break: keep-all; }
+  .v360-tl-milestone .v360-tl-date { color: var(--accent); }
+  .v360-tl-milestone .v360-tl-task { font-weight: 700; color: var(--ink); }
+  @media (max-width: 860px) { .v360-bottom-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .v360-detail-grid { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════
+     PIPELINE VISUALIZATION
+  ════════════════════════════════════════ */
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  .pipeline-stages { display: flex; flex-direction: column; gap: 0; }
+  .pipeline-stage {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--card);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    font-weight: 700; font-size: 0.9rem; color: var(--ink);
+    transition: background 0.2s;
+  }
+  .pipeline-stage:hover { background: var(--faint); }
+  .pipeline-stage-num {
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--mid); min-width: 1.5ch; text-align: right;
+  }
+  .pipeline-connector {
+    width: 1px; height: 0.5rem; background: var(--hair);
+    margin: 0 auto; margin-left: calc(1.1rem + 0.75ch + 0.5rem);
+  }
+  .pipeline-features { display: flex; flex-direction: column; }
+  .pipeline-feat {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .pipeline-feat:first-child { border-top: 1px solid var(--hair); }
+  .pipeline-feat-num { font-size: 1.1rem; font-weight: 700; color: #767676; font-variant-numeric: tabular-nums; margin-bottom: 0.25rem; }
+  .pipeline-feat-name { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+  .pipeline-feat-desc { font-size: 0.8rem; color: var(--mid); }
+  @media (max-width: 640px) { .pipeline-grid { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════
+     SYNC FLOW
+  ════════════════════════════════════════ */
+  .sync-wrap {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-top: 2.5rem; flex-wrap: wrap;
+  }
+  .sync-source {
+    background: var(--ink); color: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 1rem; font-weight: 700;
+    min-width: 140px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  .sync-arrow { font-size: 1.5rem; color: var(--mid); flex-shrink: 0; }
+  .sync-outputs { display: flex; flex-direction: column; gap: 0.6rem; flex: 1; min-width: 240px; }
+  .sync-out {
+    background: var(--card); border-radius: var(--radius);
+    padding: 0.8rem 1.1rem;
+    display: flex; gap: 0.75rem; align-items: center;
+  }
+  .sync-out-num { font-size: 1rem; font-weight: 700; color: var(--mid); }
+  .sync-out-text { font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+  .sync-note {
+    margin-top: 1.5rem;
+    font-size: 0.875rem; font-style: italic; color: var(--body);
+    border-top: 1px solid var(--hair); padding-top: 1rem;
+  }
+
+  /* ════════════════════════════════════════
+     SCHEDULE TIMELINE
+  ════════════════════════════════════════ */
+  .timeline { margin-top: 2.5rem; }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 120px 120px 1fr;
+    gap: 1rem 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: center;
+  }
+  .timeline-row:first-child { border-top: 1px solid var(--hair); }
+  .timeline-week { font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+  .timeline-date { font-size: 0.78rem; color: var(--mid); }
+  .timeline-task { font-size: 0.875rem; color: var(--body); }
+  @media (max-width: 560px) {
+    .timeline-row { grid-template-columns: 1fr 1fr; }
+    .timeline-task { grid-column: span 2; }
+  }
+
+  /* ════════════════════════════════════════
+     SCHEDULE VIEW TOGGLE + CALENDAR
+  ════════════════════════════════════════ */
+  .sched-toggle {
+    display: flex; gap: 0.5rem;
+    margin-top: 2rem; margin-bottom: 0;
+  }
+  .sched-btn {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em;
+    font-family: var(--ff-display);
+    border: 1px solid var(--hair);
+    background: var(--white); color: var(--mid);
+    border-radius: var(--radius); cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .sched-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .sched-btn:hover:not(.active) { border-color: var(--mid); color: var(--ink); }
+  .sched-panel { display: none; }
+  .sched-panel.active { display: block; }
+
+  /* Calendar */
+  .cal-view { margin-top: 1.5rem; }
+  .cal-tabs {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .cal-tab {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.82rem; font-weight: 700;
+    font-family: var(--ff-display);
+    border: none; background: none; color: var(--mid);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .cal-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .cal-month { display: none; padding-top: 1.25rem; }
+  .cal-month.active { display: block; }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 1px; background: var(--hair);
+    border: 1px solid var(--hair); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .cal-hdr {
+    background: var(--card); text-align: center;
+    padding: 0.5rem 0.2rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--mid); font-family: var(--ff-display);
+  }
+  .cal-cell {
+    background: var(--white);
+    min-height: 88px; padding: 0.35rem 0.3rem;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .cal-cell.cal-empty, .cal-cell.cal-other { background: var(--faint); }
+  .cal-cell.cal-today { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .cal-num {
+    font-size: 0.7rem; font-weight: 600; color: var(--body);
+    font-family: var(--ff-display);
+    line-height: 1; margin-bottom: 2px;
+    align-self: flex-start;
+  }
+  .cal-today-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.4rem; height: 1.4rem;
+    background: var(--ink); color: var(--white);
+    border-radius: 50%; font-size: 0.64rem; font-weight: 700;
+  }
+  .cal-evt {
+    font-size: 0.6rem; line-height: 1.35; border-radius: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    display: block; max-width: 100%;
+  }
+  .cal-evt-label { padding: 0.1rem 0.28rem; }
+  .cal-evt-cont { height: 5px; padding: 0; margin-top: 1px; }
+  /* Event type colours — greyscale palette */
+  .cal-evt-milestone.cal-evt-label { background: var(--ink); color: var(--white); font-weight: 700; }
+  .cal-evt-milestone.cal-evt-cont  { background: var(--ink); opacity: 0.7; }
+  .cal-evt-task.cal-evt-label      { background: var(--card); color: var(--body); border-left: 2px solid var(--mid); }
+  .cal-evt-task.cal-evt-cont       { background: var(--hair); }
+  .cal-evt-build.cal-evt-label     { background: var(--hair); color: var(--ink); border-left: 2px solid var(--body); }
+  .cal-evt-build.cal-evt-cont      { background: var(--line); }
+  .cal-evt-event.cal-evt-label     { background: var(--line); color: var(--ink); }
+  .cal-evt-event.cal-evt-cont      { background: var(--line); opacity: 0.5; }
+  .cal-evt-weekly.cal-evt-label    { background: var(--faint); color: var(--ink); font-weight: 700; border: 1px solid var(--hair); }
+  .cal-evt-deadline.cal-evt-label  { background: var(--body); color: var(--white); font-weight: 700; }
+  .cal-evt-deadline.cal-evt-cont   { background: var(--body); opacity: 0.6; }
+  .cal-legend {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 1rem;
+    font-size: 0.7rem; color: var(--mid);
+    font-family: var(--ff-display);
+  }
+  .cal-legend-item { display: flex; align-items: center; gap: 0.3rem; }
+  .cal-legend-dot {
+    width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+  }
+  @media (max-width: 680px) {
+    .cal-cell { min-height: 56px; padding: 0.2rem 0.15rem; }
+    .cal-evt { font-size: 0.52rem; }
+    .cal-evt-label { padding: 0.08rem 0.18rem; }
+    .cal-num { font-size: 0.6rem; }
+    .cal-tab { padding: 0.5rem 1rem; font-size: 0.75rem; }
+  }
+
+  /* ════════════════════════════════════════
+     SUPPORT GRID
+  ════════════════════════════════════════ */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .support-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .support-area {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--mid); margin-bottom: 0.4rem;
+  }
+  .support-names { font-size: 1.1rem; font-weight: 800; color: var(--ink); margin-bottom: 0.5rem; }
+  .support-scope { font-size: 0.8rem; color: var(--mid); line-height: 1.6; }
+  @media (max-width: 560px) { .support-grid { grid-template-columns: 1fr; } }
+
+  /* ════════════════════════════════════════
+     DECLARATION (dark)
+  ════════════════════════════════════════ */
+  .declaration {
+    background: var(--ink);
+    text-align: center;
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+  .decl-kicker {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: oklch(65% 0 0); margin-bottom: 1.25rem;
+    font-family: var(--ff-display);
+  }
+  .decl-divider {
+    width: 2rem; height: 2px; background: var(--accent);
+    margin: 0 auto 1.5rem;
+  }
+  .decl-title {
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 900; letter-spacing: -0.025em;
+    color: var(--white); line-height: 1.2;
+    margin-bottom: 1.5rem; text-wrap: balance;
+  }
+  .decl-body {
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+    font-style: italic; color: oklch(72% 0 0);
+    max-width: 560px; margin: 0 auto 3.5rem;
+    line-height: 1.75; text-wrap: pretty;
+  }
+  .decl-promises {
+    display: flex; justify-content: center; gap: 0;
+    border-top: 1px solid oklch(30% 0 0);
+    padding-top: 2.5rem; flex-wrap: wrap;
+  }
+  .decl-promise {
+    padding: 0 2.5rem;
+    border-right: 1px solid oklch(30% 0 0);
+    text-align: center;
+  }
+  .decl-promise:last-child { border-right: none; }
+  .decl-promise-main { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+  .decl-promise-sub { font-size: 0.78rem; color: oklch(68% 0 0); }
+  @media (max-width: 560px) {
+    .decl-promises { flex-direction: column; align-items: center; gap: 1.5rem; }
+    .decl-promise { border-right: none; border-bottom: 1px solid oklch(30% 0 0); padding-bottom: 1.5rem; width: 100%; }
+    .decl-promise:last-child { border-bottom: none; padding-bottom: 0; }
+  }
+
+  /* ════════════════════════════════════════
+     ACTION ITEMS (dark)
+  ════════════════════════════════════════ */
+  .actions {
+    background: var(--ink);
+    border-top: 1px solid oklch(28% 0 0);
+    padding-block: clamp(4rem, 8vw, 6rem);
+  }
+  .actions .section-title { color: var(--white); }
+  .action-list { margin-top: 2rem; }
+  .action-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem 1.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid oklch(28% 0 0);
+    align-items: center;
+  }
+  .action-row:first-child { border-top: 1px solid oklch(28% 0 0); }
+  .action-num { font-size: 1.4rem; font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .action-text { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+  .action-when { font-size: 0.75rem; color: oklch(65% 0 0); text-align: right; white-space: nowrap; }
+  .qa-block {
+    text-align: center;
+    padding-top: 4rem;
+    border-top: 1px solid oklch(28% 0 0);
+    margin-top: 3rem;
+  }
+  .qa-label { font-size: 3rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .qa-team { font-size: 0.8rem; color: oklch(65% 0 0); }
+
+  /* ════════════════════════════════════════
+     FOOTER
+  ════════════════════════════════════════ */
+  footer {
+    background: oklch(12% 0 0);
+    padding: 2rem var(--side);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .footer-brand { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(40% 0 0); }
+  .footer-copy { font-size: 0.72rem; color: oklch(35% 0 0); }
+
+  /* ════════════════════════════════════════
+     AVOID section (피해야할 과제)
+  ════════════════════════════════════════ */
+  .avoid-list { margin-top: 2rem; }
+  .avoid-row {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 0.75rem 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hair);
+    align-items: start;
+  }
+  .avoid-row:first-child { border-top: 1px solid var(--hair); }
+  .avoid-x { font-size: 1rem; color: var(--mid); font-weight: 700; }
+  .avoid-title { font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+  .avoid-desc { font-size: 0.8rem; color: var(--mid); margin-top: 0.2rem; }
+  .avoid-reason { font-size: 0.8rem; font-style: italic; color: var(--body); }
+  @media (max-width: 560px) {
+    .avoid-row { grid-template-columns: auto 1fr; }
+    .avoid-reason { grid-column: 2; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Dreamus · AX Office</span>
+  <ul class="nav-links">
+    <li><a href="#signal">Signal</a></li>
+    <li><a href="#ycmessages">5 Messages</a></li>
+    <li><a href="#data">한국 vs 미국</a></li>
+    <li><a href="#answer">우리의 답</a></li>
+    <li><a href="#format">과제 형식</a></li>
+    <li><a href="#example">View 360</a></li>
+    <li><a href="#schedule">일정</a></li>
+    <li><a href="#declaration">선언</a></li>
+  </ul>
+  <span class="nav-date">Weekly #04 · 2026.06.08</span>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<header class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">AX Champion Weekly</div>
+      <div class="hero-tag">
+        Weekly #04 · 2026.06.08<br>
+        Hosted by Alex
+      </div>
+    </div>
+    <div class="hero-left-bottom">
+      <div class="hero-label">오늘의 구성</div>
+      <div class="hero-sub">
+        Part 1 · 왜 지금인가<br>
+        Part 2 · 무엇을 어떻게<br>
+        Part 3 · 선언
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-kicker">AX Champion Weekly</div>
+    <h1 class="hero-title">AI Powered<br>Dreamus Company</h1>
+    <p class="hero-question">Champion이 주도하는 긍정적인 전사 혁신</p>
+    <p class="hero-tagline">
+      YC 인사이트 · 우리의 속도 · 챔피언의 성공
+    </p>
+  </div>
+</header>
+
+<!-- ════════ PART 1: SIGNAL ════════ -->
+<section id="signal">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 1 · 왜 지금인가</span>
+      <h2 class="section-title">지금 실리콘밸리에서 일어나는 일</h2>
+      <p class="section-desc">YC General Partner Tom Blomfield · "자기개선 회사를 만드는 법" (2026.05)</p>
+    </div>
+
+    <!-- YouTube embed -->
+    <div class="yt-wrap reveal hidden">
+      <div class="yt-player">
+        <div class="yt-thumb" id="ytThumb" onclick="loadYT()">
+          <img
+            src="https://img.youtube.com/vi/X_JsIHUfUjc/maxresdefault.jpg"
+            alt="How to Build a Self-Improving Company with AI – Tom Blomfield, YC"
+            loading="lazy"
+          >
+          <div class="yt-play-btn" aria-label="재생">
+            <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+          </div>
+          <div class="yt-meta">
+            <span class="yt-duration">12:24</span>
+          </div>
+        </div>
+        <iframe
+          id="ytFrame"
+          src=""
+          title="How to Build a Self-Improving Company with AI – Tom Blomfield, YC"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="display:none; width:100%; height:100%; position:absolute; top:0; left:0;"
+        ></iframe>
+      </div>
+      <div class="yt-info">
+        <div class="yt-info-label">원본 영상 · YC 2025.05</div>
+        <div class="yt-info-title">How to Build a Self-Improving Company with AI</div>
+        <div class="yt-info-speaker">Tom Blomfield · YC General Partner</div>
+        <a class="yt-info-link" href="https://www.youtube.com/watch?v=X_JsIHUfUjc" target="_blank" rel="noopener">YouTube에서 보기 →</a>
+      </div>
+    </div>
+
+    <div class="quote-grid reveal hidden">
+      <div class="quote-main">
+        <div class="quote-label">핵심 주장</div>
+        <p class="quote-text">"AI는 회사 옆에 볼트로 덧붙이는 게 아니다. AI를 중심에 놓고 회사를 다시 설계하는 것이다."</p>
+        <p class="quote-note">Copilot은 잘못된 멘탈 모델입니다. AI는 보조도구가 아니라 회사의 운영 체계가 됩니다.</p>
+      </div>
+      <div class="quote-speaker">
+        <div class="quote-speaker-label">Speaker</div>
+        <div class="quote-speaker-name">Tom Blomfield</div>
+        <div class="quote-speaker-bio">
+          YC General Partner<br>
+          GoCardless · Monzo 창업<br>
+          두 개의 유니콘을 만든 사람
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ YC 5 MESSAGES ════════ -->
+<section id="ycmessages">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 1 · 왜 지금인가</span>
+      <h2 class="section-title">Tom Blomfield의 5가지 메시지</h2>
+      <p class="section-desc">12분 영상의 핵심입니다. 우리에게 주는 의미를 함께 살펴보겠습니다.</p>
+    </div>
+
+    <div class="message-list">
+      <div class="message-row reveal hidden">
+        <div class="message-num">01</div>
+        <div>
+          <div class="message-title">재귀적 자기개선 루프</div>
+          <div class="message-body">감지 → 규칙·도구·품질게이트 → 자동 학습. 창업자가 잠든 사이에도 회사가 스스로 최적화됩니다.</div>
+        </div>
+        <div class="message-impact">AX Pipeline이 우리의 첫 루프</div>
+      </div>
+      <div class="message-row reveal hidden">
+        <div class="message-num">02</div>
+        <div>
+          <div class="message-title">Burn tokens, not headcount</div>
+          <div class="message-body">AI로 무장한 1명이 엔지니어 1,000명과 맞먹습니다.</div>
+        </div>
+        <div class="message-impact">토큰(Max)에 투자하라는 직접적 근거</div>
+      </div>
+      <div class="message-row reveal hidden">
+        <div class="message-num">03</div>
+        <div>
+          <div class="message-title">"API 청구서가 불편하지 않다면 충분히 하고 있지 않은 것"</div>
+          <div class="message-body"></div>
+        </div>
+        <div class="message-impact">우리는 충분히 쓰고 있습니까?</div>
+      </div>
+      <div class="message-row reveal hidden">
+        <div class="message-num">04</div>
+        <div>
+          <div class="message-title">모든 것을 AI가 읽을 수 있게</div>
+          <div class="message-body">회사 지식·프로세스를 AI 접근 가능한 형태로</div>
+        </div>
+        <div class="message-impact">Wiki·Jira·Slack 정리가 곧 경쟁력</div>
+      </div>
+      <div class="message-row reveal hidden">
+        <div class="message-num">05</div>
+        <div>
+          <div class="message-title">사람은 고위험 의사결정에 집중</div>
+          <div class="message-body">모든 구성원이 IC(개별 기여자)가 됩니다.</div>
+        </div>
+        <div class="message-impact">챔피언 = 우리의 IC 선발대</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DATA: KR vs US ════════ -->
+<section id="data">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 1 · 현실</span>
+      <h2 class="section-title">우리가 너무 느린 것 아닐까요?</h2>
+      <p class="section-desc">느낌이 아니라 데이터로 확인해 보겠습니다.</p>
+    </div>
+
+    <div class="compare-grid reveal hidden">
+      <div class="compare-us">
+        <div class="compare-country">United States</div>
+        <div class="compare-pct">77%</div>
+        <div class="compare-source">기술 산업 종사자 AI 활용률 · Gallup, 2026.01</div>
+        <ul class="compare-bullets">
+          <li>화이트칼라 일일 사용 27% (2년간 +12%p)</li>
+          <li>소프트웨어 엔지니어 일일 사용 71%</li>
+          <li>기업 AI 도입 78% (1년 전 55%)</li>
+        </ul>
+      </div>
+      <div class="compare-kr">
+        <div class="compare-country">Korea</div>
+        <div class="compare-pct">30.7%</div>
+        <div class="compare-source">생성형 AI 이용률 · 국회도서관, 2025 하반기</div>
+        <ul class="compare-bullets">
+          <li>대기업 AI 활용 48.8% / 중소기업 28.7%</li>
+          <li>세계 AI 민간투자 미국 2,859억$ vs 한국 17.8억$ (12위)</li>
+          <li>단, 이용률 증가폭은 세계 최고 (+4.8%p)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="compare-footer reveal hidden">격차는 분명합니다. 그러나 증가 속도는 우리가 세계 최고입니다. 지금이 따라잡을 적기입니다.</p>
+    <p class="compare-footer-note reveal hidden">출처 · Gallup 2026.01 · 국회도서관 국가전략포털 2026.04 · KDI 국내기업 AI 활용 실태 · McKinsey State of AI</p>
+  </div>
+</section>
+
+<!-- ════════ CEO NOTE ════════ -->
+<section id="answer">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 1 · 우리의 답</span>
+      <h2 class="section-title">그래서, 우리의 답</h2>
+    </div>
+
+    <div class="ceo-note reveal hidden">
+      <div class="ceo-note-label">CEO Note</div>
+      <p class="ceo-note-text">"더 많이 돌려보고, 더 많이 배우고, 더 많이 앞서가기 위해."</p>
+    </div>
+
+    <div class="ceo-cards">
+      <div class="ceo-card reveal hidden">
+        <div class="ceo-card-num">01</div>
+        <div class="ceo-card-label">궁극의 목표</div>
+        <div class="ceo-card-text">전 구성원이 Max 계정으로<br>생산성을 극대화합니다.</div>
+      </div>
+      <div class="ceo-card reveal hidden">
+        <div class="ceo-card-num">02</div>
+        <div class="ceo-card-label">그 길은</div>
+        <div class="ceo-card-text">챔피언의 성공 사례가<br>예산을 정당화합니다.</div>
+      </div>
+      <div class="ceo-card reveal hidden">
+        <div class="ceo-card-num">03</div>
+        <div class="ceo-card-label">회사의 약속</div>
+        <div class="ceo-card-text">여러분의 성공을 위해<br>모든 지원을 다하겠습니다.</div>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.875rem; font-style:italic; color:var(--body);" class="reveal hidden">
+      토큰에 투자하는 것이 사람의 시간을 되찾는 것입니다. 챔피언이 그것을 증명합니다.
+    </p>
+  </div>
+</section>
+
+<!-- ════════ PART 2: FORMAT ════════ -->
+<section id="format" style="background:var(--faint);">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 무엇을 어떻게</span>
+      <h2 class="section-title">과제정의서 7개 섹션</h2>
+      <p class="section-desc">Problem부터 시작합니다. 솔루션부터 시작하면 막다른 길에 갇힙니다.</p>
+    </div>
+
+    <div class="sec-flow reveal hidden">
+      <div class="sec-step sec-step-start">
+        <div class="sec-step-badge">00</div>
+        <div class="sec-step-name">30초 Summary</div>
+        <div class="sec-step-desc">핵심 요약</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">01</div>
+        <div class="sec-step-name">Problem</div>
+        <div class="sec-step-desc">왜 푸는가</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">02</div>
+        <div class="sec-step-name">User</div>
+        <div class="sec-step-desc">누가 쓸 것인가</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">03</div>
+        <div class="sec-step-name">Goal</div>
+        <div class="sec-step-desc">무엇이 성공인가</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">04</div>
+        <div class="sec-step-name">Solution</div>
+        <div class="sec-step-desc">어떻게 풀 것인가</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">05</div>
+        <div class="sec-step-name">Build</div>
+        <div class="sec-step-desc">어떻게 만들 것인가</div>
+      </div>
+      <div class="sec-step">
+        <div class="sec-step-badge">06</div>
+        <div class="sec-step-name">Timeline</div>
+        <div class="sec-step-desc">마일스톤</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 3-STAGE PATH ════════ -->
+<section>
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 무엇을 어떻게</span>
+      <h2 class="section-title">3단계 성장 경로</h2>
+      <p class="section-desc">Champion의 기획 및 개발 능력이 향상됨에 따라 보다 넓은 범위의 과제를 수행하게 됩니다.</p>
+    </div>
+
+    <div class="stage-row">
+      <div class="stage-card reveal hidden">
+        <div class="stage-badge">Stage 1</div>
+        <div class="stage-name">개인 효율화</div>
+        <div class="stage-desc">내 일을 정확히 풉니다.</div>
+        <hr class="stage-divider">
+        <div class="stage-graduate">졸업조건</div>
+        <ul class="stage-bullets">
+          <li>빠르게 만들고 검증</li>
+          <li>비개발 진입로</li>
+          <li>Quick Win 후보</li>
+        </ul>
+      </div>
+      <div class="stage-card reveal hidden">
+        <div class="stage-badge">Stage 2</div>
+        <div class="stage-name">부서 효율화</div>
+        <div class="stage-desc">1단계 패턴을 동료에게 확산합니다.</div>
+        <hr class="stage-divider">
+        <div class="stage-graduate">졸업조건</div>
+        <ul class="stage-bullets">
+          <li>부서원 N명 사용</li>
+          <li>OKR 직접 연결</li>
+          <li>성과 측정 명확</li>
+        </ul>
+      </div>
+      <div class="stage-card reveal hidden">
+        <div class="stage-badge">Stage 3</div>
+        <div class="stage-name">전사 자산화</div>
+        <div class="stage-desc">다른 부서가 자발적으로 채택합니다.</div>
+        <hr class="stage-divider">
+        <div class="stage-graduate">졸업조건</div>
+        <ul class="stage-bullets">
+          <li>그룹 의사결정 도구</li>
+          <li>Dreamus View 360 같은 통합 자산</li>
+          <li>Brice 보고 등장</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 4 TASK TYPES ════════ -->
+<section style="background:var(--faint);">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 무엇을 어떻게</span>
+      <h2 class="section-title">3가지 과제 형태</h2>
+      <p class="section-desc">손에 잡히는 결과물만 인정됩니다.</p>
+    </div>
+
+    <div class="task-grid reveal hidden">
+      <div class="task-card">
+        <div class="task-num">01</div>
+        <div>
+          <div class="task-type">워크플로우</div>
+          <div class="task-how">사람이 직접 실행하는 자동화 · Cowork·Code로 반복 작업을 흐름으로 연결</div>
+          <div class="task-example">사례 · 매주 정산 엑셀을 Cowork에 올려 자동 검증</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <div class="task-num">02</div>
+        <div>
+          <div class="task-type">웹앱</div>
+          <div class="task-how">화면을 직접 열어 사용하는 상시 사내 도구 · Claude Code로 개발</div>
+          <div class="task-example">사례 · 정산 검증 도구 (필요할 때마다 접속해서 사용)</div>
+        </div>
+      </div>
+      <div class="task-card">
+        <div class="task-num">03</div>
+        <div>
+          <div class="task-type">에이전트</div>
+          <div class="task-how">사람 없이 AI가 스스로 판단하고 실행 · Code + 스케줄로 완전 자동화</div>
+          <div class="task-example">사례 · 매주 월요일 9시 자동 검증 후 Slack 리포트 발송</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-note reveal hidden">
+      <span class="skill-note-icon">💡</span>
+      <div>
+        <span class="skill-note-label">Skill 빌드업은 과제가 아닙니다</span>
+        팀 공유 프롬프트 세트(Claude Projects)를 갖추면 과제 수행 속도가 올라갑니다 — 과제의 도구이지, 과제 그 자체는 아닙니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ AVOID ════════ -->
+<section>
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 무엇을 어떻게</span>
+      <h2 class="section-title">이런 과제는 피해주세요</h2>
+      <p class="section-desc">자발성은 살리되, 잘못된 길로 가지 않도록 함께 점검하겠습니다.</p>
+    </div>
+
+    <div class="avoid-list">
+      <div class="avoid-row reveal hidden">
+        <div class="avoid-x">✕</div>
+        <div>
+          <div class="avoid-title">단순 챗봇</div>
+          <div class="avoid-desc">"사내 문의 답변 봇" 같은 막연한 과제</div>
+        </div>
+        <div class="avoid-reason">명확한 user·pain 없이는 지속되기 어렵습니다.</div>
+      </div>
+      <div class="avoid-row reveal hidden">
+        <div class="avoid-x">✕</div>
+        <div>
+          <div class="avoid-title">Toy 프로젝트</div>
+          <div class="avoid-desc">"한번 만들어봤어요" 류</div>
+        </div>
+        <div class="avoid-reason">실업무 적용 계획이 없으면 자산이 되지 못합니다.</div>
+      </div>
+      <div class="avoid-row reveal hidden">
+        <div class="avoid-x">✕</div>
+        <div>
+          <div class="avoid-title">기존 SaaS 대체</div>
+          <div class="avoid-desc">Notion·Asana·Slack 다시 만들기</div>
+        </div>
+        <div class="avoid-reason">ROI가 나오지 않고 유지보수 부담이 큽니다.</div>
+      </div>
+      <div class="avoid-row reveal hidden">
+        <div class="avoid-x">✕</div>
+        <div>
+          <div class="avoid-title">개인 학습용</div>
+          <div class="avoid-desc">운영안 외 개인 공부</div>
+        </div>
+        <div class="avoid-reason">AX 챔피언 활동의 목적과 다릅니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DREAMUS VIEW 360 ════════ -->
+<section id="example" style="background:var(--faint);">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 시연 사례</span>
+      <h2 class="section-title">Dreamus View 360 — 양식 채우기의 모범 답안</h2>
+      <p class="section-desc">5곳에 흩어진 아티스트 정보를 9개 카테고리 단일 View로 통합. 그룹 시너지 발굴부터 투자 회수까지 한 화면에서.</p>
+    </div>
+
+    <!-- 00 · 30초 Summary -->
+    <div class="g360-grid reveal hidden">
+      <div class="g360-summary">
+        <div class="g360-label">00 · 30초 Summary</div>
+        <div class="g360-name">Dreamus View 360</div>
+        <div class="g360-fullname">드림어스 그룹 통합 아티스트 · 레이블 360 View</div>
+        <div class="g360-fact"><div class="g360-fact-key">Problem</div><div class="g360-fact-val">아티스트 정보 5곳 분산 — 시너지·영업·투자 의사결정 비효율</div></div>
+        <div class="g360-fact"><div class="g360-fact-key">Solution</div><div class="g360-fact-val">9개 카테고리 단일 View · 웹 기반 BI</div></div>
+        <div class="g360-fact"><div class="g360-fact-key">Target</div><div class="g360-fact-val">투자제작·성장사업·DSP·음악·팬덤·일본사업부 + Leader Group + 전 임직원</div></div>
+        <div class="g360-fact"><div class="g360-fact-key">Impact</div><div class="g360-fact-val">데이터 기반 의사결정 · 시너지 공백 포착 · 그룹 BI 자산 확보</div></div>
+        <div class="g360-fact"><div class="g360-fact-key">Timeline</div><div class="g360-fact-val">6/8 착수 · 8/31 1차 Beta · 9/30 2차 Open</div></div>
+      </div>
+      <div class="g360-cats">
+        <div class="g360-cats-title">9개 정보 카테고리</div>
+        <div class="g360-cat-row"><div class="g360-cat-num">①</div><div class="g360-cat-name">매출 — 드림어스 음원·MD·공연·기타</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">②</div><div class="g360-cat-name">BMF 가입 현황</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">③</div><div class="g360-cat-name">BMF 거래규모 (확보 가능 시)</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">④</div><div class="g360-cat-name">딩고뮤직 출연 현황 · 콘텐츠 퍼포먼스</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">⑤</div><div class="g360-cat-name">3사 담당부서 · 담당자</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">⑥</div><div class="g360-cat-name">경쟁사 제휴 현황 (확정 / 추정)</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">⑦</div><div class="g360-cat-name">FLO 스트리밍 — 선행 지표</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">⑧</div><div class="g360-cat-name">선급투자 + 월별 회수</div></div>
+        <div class="g360-cat-row"><div class="g360-cat-num">⑨</div><div class="g360-cat-name">아티스트 정보 · News Alert · 외부 Fan platform data</div></div>
+      </div>
+    </div>
+
+    <!-- 01 Problem + 02 User -->
+    <div class="v360-detail-grid reveal hidden">
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">01 · Problem</div>
+        <div class="v360-detail-title">왜 이 문제를 푸는가</div>
+        <div class="v360-problem-list">
+          <div class="v360-prob-item">
+            <div class="v360-prob-num">#1</div>
+            <div><div class="v360-prob-title">그룹 시너지 미발굴</div><div class="v360-prob-desc">BMF 가입 / 드림어스 거래 없음 같은 명백한 기회가 비가시적</div></div>
+          </div>
+          <div class="v360-prob-item">
+            <div class="v360-prob-num">#2</div>
+            <div><div class="v360-prob-title">선급투자 회수 비가시</div><div class="v360-prob-desc">아티스트별 월별 회수와 다른 사업부 활동이 연결되어 보이지 않음</div></div>
+          </div>
+          <div class="v360-prob-item">
+            <div class="v360-prob-num">#3</div>
+            <div><div class="v360-prob-title">선행 지표 미활용</div><div class="v360-prob-desc">FLO 스트리밍은 매출보다 3–6개월 앞선 신호. 그룹의 가장 큰 데이터 자산이 가장 적게 활용</div></div>
+          </div>
+          <div class="v360-prob-item">
+            <div class="v360-prob-num">#4</div>
+            <div><div class="v360-prob-title">의사결정 근거 부족</div><div class="v360-prob-desc">"우리 그룹과의 관계"를 한 페이지로 보여주지 못함</div></div>
+          </div>
+          <div class="v360-prob-item">
+            <div class="v360-prob-num">#5</div>
+            <div><div class="v360-prob-title">경쟁사 모니터링 비체계</div><div class="v360-prob-desc">우연 · 구두로만 파악</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">02 · User</div>
+        <div class="v360-detail-title">누가 이걸 쓸 것인가</div>
+        <div class="v360-persona-list">
+          <div class="v360-persona"><div class="v360-persona-role">CEO</div><div class="v360-persona-need">아티스트 단위 그룹 전체 관계를 한 화면에서 파악</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">투자제작그룹</div><div class="v360-persona-need">선급 회수 시그널로 의사결정 속도·정확도 향상</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">팬덤사업부</div><div class="v360-persona-need">미팅 30분 전에도 한 페이지로 트랙레코드 확인</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">일본사업부</div><div class="v360-persona-need">글로벌 청취 + 한국 활동 이력 함께 보며 후보 발굴</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">음악사업부</div><div class="v360-persona-need">그룹 전체 IP 기여도를 재계약 협상 카드로</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">Leader Group</div><div class="v360-persona-need">비어 있는 시너지 기회 자동 발견 · 즉시 액션</div></div>
+          <div class="v360-persona"><div class="v360-persona-role">전 임직원</div><div class="v360-persona-need">아티스트 단위 그룹 자산 탐색 · 사업 아이디어 연결</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Goal + 04 Solution + 05 Build + 06 Timeline -->
+    <div class="v360-bottom-grid reveal hidden">
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">03 · Goal</div>
+        <div class="v360-detail-title">무엇이 성공인가</div>
+        <p style="font-size:0.85rem; color:var(--body); line-height:1.8; margin-top:0.5rem; word-break:keep-all;">
+          3사 활동 + FLO 스트리밍 + 선급투자 월별 회수 + 외부 정보를 <strong>단일 View</strong>로 제공해,<br>
+          그룹 시너지 발굴 · 영업 무기화 · 의사결정 가속 · 자금 운용 효율화 · FLO 데이터 자산 활용을 동시에 달성한다.
+        </p>
+      </div>
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">04 · Solution</div>
+        <div class="v360-detail-title">어떻게 풀 것인가</div>
+        <p style="font-size:0.85rem; color:var(--body); line-height:1.75; margin-top:0.5rem; word-break:keep-all;">
+          아티스트 / 레이블 단위로 <strong>9개 정보 카테고리</strong>를 단일 화면에 통합 조회하는 웹 기반 360 View.
+        </p>
+        <div class="v360-persona-list" style="margin-top:0.75rem;">
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">①</div><div class="v360-persona-need">드림어스 매출 (음원·MD·공연·기타)</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">②③</div><div class="v360-persona-need">BMF 가입 현황 · BMF 거래규모</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">④</div><div class="v360-persona-need">딩고뮤직 출연 현황 · 콘텐츠 퍼포먼스</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">⑤</div><div class="v360-persona-need">3사 담당부서 · 담당자</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">⑥</div><div class="v360-persona-need">경쟁사 제휴 현황 (확정 / 추정)</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">⑦</div><div class="v360-persona-need">FLO 스트리밍 — 선행 지표</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">⑧</div><div class="v360-persona-need">선급투자 + 월별 회수</div></div>
+          <div class="v360-persona"><div class="v360-persona-role" style="min-width:24px;">⑨</div><div class="v360-persona-need">아티스트 정보 · News Alert · 외부 Fan platform</div></div>
+        </div>
+      </div>
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">05 · Build</div>
+        <div class="v360-detail-title">어떻게 만들 것인가</div>
+        <div class="v360-build-steps">
+          <div class="v360-build-step"><span class="v360-build-idx">①</span>부문장 · 실무자 Interview → 업무 요건 정의</div>
+          <div class="v360-build-step"><span class="v360-build-idx">②</span>필요 Data 요건 정의</div>
+          <div class="v360-build-step"><span class="v360-build-idx">③</span>Data 수집체계 정의 (원천 · 주기 · 방법 · 보안)</div>
+          <div class="v360-build-step"><span class="v360-build-idx">④</span>아티스트 Master Data Mapping &amp; Cleansing</div>
+          <div class="v360-build-step"><span class="v360-build-idx">⑤⑥⑦</span>1차 Data 마감 → 화면 설계 → 개발 · Beta 배포</div>
+          <div class="v360-build-step"><span class="v360-build-idx">⑧⑨⑩</span>2차 Data 마감 → 화면 설계 → 개발 · 최종 Open</div>
+        </div>
+      </div>
+      <div class="v360-detail-card">
+        <div class="v360-detail-label">06 · Timeline</div>
+        <div class="v360-detail-title">마일스톤</div>
+        <div class="v360-tl-list">
+          <div class="v360-tl-row"><div class="v360-tl-date">6/15–6/19</div><div class="v360-tl-task">BI 목표 공유 · 인터뷰 일정 조율</div></div>
+          <div class="v360-tl-row"><div class="v360-tl-date">6/22–7/3</div><div class="v360-tl-task">부문별 업무 요건 정의 · 인터뷰</div></div>
+          <div class="v360-tl-row"><div class="v360-tl-date">7/6–7/17</div><div class="v360-tl-task">Data 요건 · 수집체계 정의</div></div>
+          <div class="v360-tl-row"><div class="v360-tl-date">7/20–7/31</div><div class="v360-tl-task">Master Data Mapping &amp; Cleansing</div></div>
+          <div class="v360-tl-row v360-tl-milestone"><div class="v360-tl-date">8/31</div><div class="v360-tl-task">⭐ 1차 Beta Open</div></div>
+          <div class="v360-tl-row v360-tl-milestone"><div class="v360-tl-date">9/30</div><div class="v360-tl-task">🏁 2차 Open · 전사 공개</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ SCHEDULE ════════ -->
+<section id="schedule" style="background:var(--faint);">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 일정</span>
+      <h2 class="section-title">향후 일정</h2>
+      <p class="section-desc">지금부터 8월 말까지입니다. M+3 데드라인을 향해 함께 달립니다.</p>
+    </div>
+
+    <!-- View toggle -->
+    <div class="sched-toggle reveal hidden">
+      <button class="sched-btn active" id="btnList" onclick="switchSchedView('list')">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect y="0" width="13" height="1.8" rx="0.9" fill="currentColor"/><rect y="4" width="13" height="1.8" rx="0.9" fill="currentColor"/><rect y="8" width="13" height="1.8" rx="0.9" fill="currentColor"/></svg>
+        목록
+      </button>
+      <button class="sched-btn" id="btnCal" onclick="switchSchedView('cal')">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="0" y="2" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="3.5" y="0" width="1.5" height="4" rx="0.75" fill="currentColor"/><rect x="8" y="0" width="1.5" height="4" rx="0.75" fill="currentColor"/><line x1="0" y1="6" x2="13" y2="6" stroke="currentColor" stroke-width="1.2"/></svg>
+        캘린더
+      </button>
+    </div>
+
+    <!-- List view -->
+    <div class="sched-panel active" id="schedList">
+      <div class="timeline reveal hidden">
+        <div class="timeline-row">
+          <div class="timeline-week">6월 1–2주</div>
+          <div class="timeline-date">6/8 – 6/19</div>
+          <div class="timeline-task">Champion 별 과제정의서 작성 · AX Office 1-on-1 (요청 시)</div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-week">6월 3주</div>
+          <div class="timeline-date">6/22 – 6/26</div>
+          <div class="timeline-task">Champion Weekly — 각 부서별 과제정의서 공유 Session (각 Champion 발표)</div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-week">6월 4주–7월</div>
+          <div class="timeline-date">6/29 – 7/31</div>
+          <div class="timeline-task">Data 수집 및 개발 · Bi-weekly 기획/개발 현황 점검 · 필요 시 중간 산출물 AX Office 공유 &amp; Review</div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-week">8월 1–2주</div>
+          <div class="timeline-date">8/3 – 8/14</div>
+          <div class="timeline-task">Champion 별 산출물 Review</div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-week">8월 3–4주</div>
+          <div class="timeline-date">8/17 – 8/28</div>
+          <div class="timeline-task">배포 전 QA 진행 · 배포 우선순위 결정</div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-week" style="color:var(--ink); font-weight:900;">🏁 배포</div>
+          <div class="timeline-date">8/31</div>
+          <div class="timeline-task" style="font-weight:700; color:var(--ink);">Champion 1차 과제 배포 · 전사 Announce</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar view -->
+    <div class="sched-panel" id="schedCal">
+      <div class="cal-view">
+        <div class="cal-tabs">
+          <button class="cal-tab active" data-m="0">6월</button>
+          <button class="cal-tab" data-m="1">7월</button>
+          <button class="cal-tab" data-m="2">8월</button>
+        </div>
+        <div class="cal-month active" id="cm0"></div>
+        <div class="cal-month" id="cm1"></div>
+        <div class="cal-month" id="cm2"></div>
+        <div class="cal-legend">
+          <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--ink)"></span>마일스톤</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--card);border-left:2px solid var(--mid)"></span>과제 (정의서)</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--hair);border-left:2px solid var(--body)"></span>Build</span>
+          <span class="cal-legend-item"><span class="cal-legend-dot" style="background:var(--line)"></span>행사 · 공유</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ SUPPORT ════════ -->
+<section id="support">
+  <div class="wrap">
+    <div class="section-intro reveal hidden">
+      <span class="section-part">Part 2 · 지원체계</span>
+      <h2 class="section-title">막힐 때 누구에게</h2>
+      <p class="section-desc">혼자 끙끙 앓지 마세요. AX Office는 베이스캠프입니다.</p>
+    </div>
+
+    <div class="support-grid">
+      <div class="support-card reveal hidden">
+        <div class="support-area">기획내용 상담 · 진척 관리</div>
+        <div class="support-names">Alex · Claud · Jennifer</div>
+        <div class="support-scope">정의서 작성 · 과제 정의 · Pipeline 등록</div>
+      </div>
+      <div class="support-card reveal hidden">
+        <div class="support-area">기술 · Build</div>
+        <div class="support-names">Dennis · Claud</div>
+        <div class="support-scope">Claude Code · 인프라 · 배포 · 코드 리뷰</div>
+      </div>
+      <div class="support-card reveal hidden">
+        <div class="support-area">보안 · 정책</div>
+        <div class="support-names">CISO</div>
+        <div class="support-scope">데이터 보안 · 외부 API · 마스킹 · 인시던트</div>
+      </div>
+      <div class="support-card reveal hidden">
+        <div class="support-area">Champion 활동 고충상담</div>
+        <div class="support-names">Celia · Alex</div>
+        <div class="support-scope">같이 갈 동료 · 셀레브레이션 · 캠페인</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DECLARATION ════════ -->
+<div id="declaration" class="declaration">
+  <div class="wrap">
+    <div class="decl-kicker reveal hidden">Our Commitment · Part 3 · 선언</div>
+    <div class="decl-divider reveal hidden"></div>
+    <h2 class="decl-title reveal hidden">선발대의 도전과 시행착오가<br>Dreamus의 변화를 실현합니다.</h2>
+    <p class="decl-body reveal hidden">
+      세계가 빠르게 달리는 지금, 우리의 답은 사람입니다.<br>
+      여러분의 성공이 회사의 속도가 됩니다.
+    </p>
+  </div>
+</div>
+
+<!-- ════════ ACTIONS ════════ -->
+<div id="actions" class="actions">
+  <div class="wrap">
+    <h2 class="section-title reveal hidden">Next Steps</h2>
+
+    <div class="action-list">
+      <div class="action-row reveal hidden">
+        <div class="action-num">01</div>
+        <div class="action-text">AX Pipeline에 본인 카드 등록</div>
+        <div class="action-when">이번 주 안에</div>
+      </div>
+      <div class="action-row reveal hidden">
+        <div class="action-num">02</div>
+        <div class="action-text">(필요시) AX Office에 1:1을 신청해주세요</div>
+        <div class="action-when">다음 주까지</div>
+      </div>
+    </div>
+
+    <div class="qa-block reveal hidden">
+      <div class="qa-label">Q &amp; A</div>
+      <div class="qa-team">AX Office · Alex · Celia · Dennis · Jeffrey · CISO</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-brand">Dreamus · AX Office · Weekly #04</div>
+  <div class="footer-copy">2026.06.08 · Hosted by Alex</div>
+</footer>
+
+<script>
+  // ── Schedule: view toggle ──
+  function switchSchedView(v) {
+    document.getElementById('schedList').classList.toggle('active', v === 'list');
+    document.getElementById('schedCal').classList.toggle('active', v === 'cal');
+    document.getElementById('btnList').classList.toggle('active', v === 'list');
+    document.getElementById('btnCal').classList.toggle('active', v === 'cal');
+  }
+
+  // ── Calendar rendering ──
+  const SCHED_EVENTS = [
+    { date:'2026-06-08', label:'Weekly #04 발표', type:'milestone' },
+    { start:'2026-06-08', end:'2026-06-19', label:'과제정의서 작성 · 1-on-1', type:'task' },
+    { start:'2026-06-22', end:'2026-06-26', label:'과제정의서 공유 Session', type:'event' },
+    { start:'2026-06-29', end:'2026-07-31', label:'Data 수집 및 개발', type:'build' },
+    { start:'2026-08-03', end:'2026-08-14', label:'산출물 Review', type:'task' },
+    { start:'2026-08-17', end:'2026-08-28', label:'QA · 배포 우선순위 결정', type:'build' },
+    { date:'2026-08-31', label:'🏁 1차 과제 배포 · 전사 Announce', type:'milestone' },
+  ];
+
+  (function buildCalendar() {
+    const TODAY = '2026-06-08';
+    const MONTHS = [
+      { year:2026, month:5, name:'6월' },
+      { year:2026, month:6, name:'7월' },
+      { year:2026, month:7, name:'8월' },
+    ];
+    const DAYNAMES = ['일','월','화','수','목','금','토'];
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function dateStr(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+
+    MONTHS.forEach(({year, month}, idx) => {
+      const el = document.getElementById('cm' + idx);
+      if (!el) return;
+
+      const firstDow = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      let html = '<div class="cal-grid">';
+      DAYNAMES.forEach(d => html += `<div class="cal-hdr">${d}</div>`);
+      for (let i = 0; i < firstDow; i++) html += '<div class="cal-cell cal-empty"></div>';
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const ds = dateStr(year, month, day);
+        const isToday = ds === TODAY;
+
+        // Collect events active on this day
+        const active = SCHED_EVENTS.filter(ev => {
+          const s = ev.start || ev.date;
+          const e = ev.end   || ev.date;
+          return ds >= s && ds <= e;
+        });
+
+        html += `<div class="cal-cell${isToday ? ' cal-today' : ''}">`;
+        html += `<span class="cal-num${isToday ? ' cal-today-num' : ''}">${day}</span>`;
+
+        active.forEach(ev => {
+          const s = ev.start || ev.date;
+          const isStart = ds === s;
+          if (isStart) {
+            html += `<span class="cal-evt cal-evt-${ev.type} cal-evt-label">${ev.label}</span>`;
+          } else {
+            html += `<span class="cal-evt cal-evt-${ev.type} cal-evt-cont"></span>`;
+          }
+        });
+
+        html += '</div>';
+      }
+      html += '</div>';
+      el.innerHTML = html;
+    });
+
+    // Tab switching for calendar months
+    document.querySelectorAll('.cal-tab').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.cal-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.cal-month').forEach(m => m.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('cm' + this.dataset.m).classList.add('active');
+      });
+    });
+  })();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach((el) => {
+    const siblings = [...el.parentElement.querySelectorAll('.reveal')];
+    const idx = siblings.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = (idx * 80) + 'ms';
+    io.observe(el);
+  });
+
+  // ── YouTube lazy load ──
+  function loadYT() {
+    const thumb = document.getElementById('ytThumb');
+    const frame = document.getElementById('ytFrame');
+    thumb.style.display = 'none';
+    frame.src = 'https://www.youtube.com/embed/X_JsIHUfUjc?autoplay=1&rel=0';
+    frame.style.display = 'block';
+  }
+
+  // ── Nav active highlight ──
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('[id]');
+
+  const activeIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => activeIO.observe(s));
+
+  // ── 키보드 섹션 네비게이션 (↓↑ / Space / PageDown / PageUp) ──
+  const snapTargets = [
+    document.querySelector('header.hero'),
+    ...document.querySelectorAll('section, div.declaration, div.actions')
+  ].filter(Boolean);
+
+  let currentIdx = 0;
+
+  // 현재 위치 추적
+  const posIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = snapTargets.indexOf(e.target);
+        if (idx !== -1) currentIdx = idx;
+      }
+    });
+  }, { threshold: 0.4 });
+  snapTargets.forEach(t => posIO.observe(t));
+
+  // 키보드
+  document.addEventListener('keydown', (e) => {
+    if (document.activeElement && document.activeElement.tagName === 'IFRAME') return;
+    const fwd = ['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key);
+    const bwd = ['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key);
+    if (!fwd && !bwd) return;
+    e.preventDefault();
+    const next = fwd
+      ? Math.min(currentIdx + 1, snapTargets.length - 1)
+      : Math.max(currentIdx - 1, 0);
+    snapTargets[next].scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
