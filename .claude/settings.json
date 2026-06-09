@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const s=require('fs').readFileSync(0,'utf8');try{const d=JSON.parse(s);const c=d.tool_input&&d.tool_input.command||'';if(/vercel/.test(c)&&/deploy|--prod/.test(c)){const{execSync}=require('child_process');try{execSync('git -C \\\"C:/Users/Alex_02/Dreamus AX/ax-weekly-04\\\" add -A',{stdio:'pipe'});execSync('git -C \\\"C:/Users/Alex_02/Dreamus AX/ax-weekly-04\\\" commit -m \\\"auto: sync with Vercel deploy\\\"',{stdio:'pipe'});execSync('git -C \\\"C:/Users/Alex_02/Dreamus AX/ax-weekly-04\\\" push origin main',{stdio:'inherit'});}catch(e){}}}catch(e){}\"",
+            "timeout": 60,
+            "statusMessage": "📤 Auto-pushing to GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}
